@@ -8,10 +8,18 @@ import workflow.fileio.Filters;
 import workflow.fileio.Movie;
 import workflow.fileio.User;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public final class MoviesPage implements Page {
+    private Database db;
+    MoviesPage() {
+
+    }
+    MoviesPage(Database db) {
+        this.db = db;
+    }
     /**
      * Metoda pentru cautarea filmelor care incep cu un anume subsir
      * @param database baza de date
@@ -73,14 +81,13 @@ public final class MoviesPage implements Page {
                 database.setPages(new ArrayList<String>());
             }
             case "movies" -> {
+                database.getPages().add("movies");
                 database.setPage(new MoviesPage());
                 database.setCurrentMoviesList();
                 database.setSuccessOutput();
-                database.getPages().add("movies");
             }
             case "see details" -> {
                 seeDetails(database, action);
-                database.getPages().add("see details");
             }
             case "homepage" -> database.setPage(new AuthenticatedHomepage());
             default -> database.setErrorOutput();
@@ -88,7 +95,11 @@ public final class MoviesPage implements Page {
     }
     @Override
     public void modifyDatabase(Database database, Action action) {
-
+        switch (action.getFeature()) {
+            case "add" -> database.addMovie(action.getAddedMovie());
+            case "delete" -> database.deleteMovie(action.getDeletedMovie());
+            default -> database.setErrorOutput();
+        }
     }
 
     /**
@@ -104,6 +115,7 @@ public final class MoviesPage implements Page {
                 // adaugam filmul gasit in lista de filme curenta
                 database.setCurrentMoviesList(movies);
                 // setam noua pagina
+                database.getPages().add("upgrades");
                 database.setPage(new SeeDetailsPage(database, m));
                 database.setSuccessOutput();
                 return;

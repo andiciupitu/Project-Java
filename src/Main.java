@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import workflow.Command;
 import workflow.Database;
 import workflow.Invoker;
+import workflow.UsersDatabase;
 import workflow.command.BackPageCommand;
 import workflow.command.ChangePageCommand;
+import workflow.command.ModifyDatabaseCommand;
 import workflow.command.OnPageCommand;
 import workflow.io.Input;
 import workflow.io.Action;
@@ -32,6 +34,7 @@ public final class Main {
         Invoker invoker = new Invoker();
         ArrayList<Output> output = new ArrayList<>();
         Database database = new Database(inputData.getUsers(), inputData.getMovies());
+        UsersDatabase usersDatabase = new UsersDatabase(inputData.getUsers());
         ArrayList<Action> actions = inputData.getActions();
         for (int i = 0; i < actions.size(); i++) {
             Command command;
@@ -41,9 +44,11 @@ public final class Main {
             } else if (actions.get(i).getType().equals("change page")){
                 // daca comanda este una de tip changePage
                  command = new ChangePageCommand(database, actions.get(i));
-            } else {
-                // comanda de tip back
+            } else if (actions.get(i).getType().equals("back")){
+               // comanda de tip back
                 command = new BackPageCommand(database);
+            } else {
+                command = new ModifyDatabaseCommand(database, actions.get(i));
             }
             database.setOutput(null);
             // rulam comanda prin invoker
@@ -54,9 +59,16 @@ public final class Main {
             if (outputNow != null) {
                 Output loveDeepCopy = objectMapper.
                         readValue(objectMapper.writeValueAsBytes(outputNow), Output.class);
-                // o adaugam la o
                 output.add(loveDeepCopy);
             }
+        }
+        if(database.getUsers().get(database.getUserIndex()).getCredentials().getAccountType().equals("premium") )
+        {
+            database.makeRecommendation();
+            Output outputNow = database.getOutput();
+            Output loveDeepCopy = objectMapper.
+                    readValue(objectMapper.writeValueAsBytes(outputNow), Output.class);
+            output.add(loveDeepCopy);
         }
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(args[1]), output);

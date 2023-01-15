@@ -1,5 +1,6 @@
 package workflow;
 
+import workflow.fileio.Notifications;
 import workflow.pages.unauthenticated.UnauthenticatedHomepage;
 import workflow.pages.Page;
 import workflow.io.Output;
@@ -12,14 +13,6 @@ public final class Database {
     private final ArrayList<User> users;
     private final ArrayList<Movie> movies;
     private ArrayList<String> pages = new ArrayList<String>();
-
-    public ArrayList<String> getPages() {
-        return pages;
-    }
-
-    public void setPages(ArrayList<String> pages) {
-        this.pages = pages;
-    }
 
     private Page page;
     private Output output = null;
@@ -44,6 +37,24 @@ public final class Database {
                 currentMoviesList.add(movie);
             }
         }
+    }
+    public void makeRecommendation() {
+        Notifications recomandare = new Notifications();
+        recomandare.setMessage("Recommendation");
+        recomandare.setMovieName("No recommendation");
+        users.get(userIndex).getNotifications().add(recomandare);
+        currentMoviesList = null;
+        setSuccessOutput();
+    }
+    public void addMovie(Movie addedMovie) {
+        if(movies.contains(addedMovie)) {
+            setErrorOutput();
+        } else {
+            movies.add(addedMovie);
+        }
+    }
+    public void deleteMovie(String deletedMovie) {
+
     }
 
     /**
@@ -71,7 +82,13 @@ public final class Database {
         userIndex = -1;
         currentMoviesList = new ArrayList<>();
     }
+    public ArrayList<String> getPages() {
+        return pages;
+    }
 
+    public void setPages(ArrayList<String> pages) {
+        this.pages = pages;
+    }
     public int getUserIndex() {
         return userIndex;
     }

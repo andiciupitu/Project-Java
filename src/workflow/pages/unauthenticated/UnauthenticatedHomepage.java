@@ -33,6 +33,10 @@ public final class UnauthenticatedHomepage implements Page {
 
     @Override
     public void modifyDatabase(Database database, Action action) {
-
+        switch (action.getFeature()) {
+            case "add" -> database.addMovie(action.getAddedMovie());
+            case "delete" -> database.deleteMovie(action.getDeletedMovie());
+            default -> database.setErrorOutput();
+        }
     }
 }

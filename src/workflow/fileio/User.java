@@ -13,7 +13,6 @@ public class User {
     private ArrayList<Movie> ratedMovies = new ArrayList<>();
     private ArrayList<Notifications> notifications = new ArrayList<>();
 
-
     public ArrayList<Notifications> getNotifications() {
         return notifications;
     }
@@ -90,4 +89,17 @@ public class User {
         this.ratedMovies = ratedMovies;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "credentials=" + credentials +
+                ", tokensCount=" + tokensCount +
+                ", numFreePremiumMovies=" + numFreePremiumMovies +
+                ", purchasedMovies=" + purchasedMovies +
+                ", watchedMovies=" + watchedMovies +
+                ", likedMovies=" + likedMovies +
+                ", ratedMovies=" + ratedMovies +
+                ", notifications=" + notifications +
+                '}';
+    }
 }

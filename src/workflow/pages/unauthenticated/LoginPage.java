@@ -30,7 +30,6 @@ public final class LoginPage implements Page {
         database.setPage(new AuthenticatedHomepage());
         database.setUserIndex(database.getUsers().indexOf(user));
         database.setSuccessOutput();
-        database.getPages().add("homepage");
     }
 
     /**
@@ -82,6 +81,10 @@ public final class LoginPage implements Page {
     }
     @Override
     public void modifyDatabase(Database database, Action action) {
-
+        switch (action.getFeature()) {
+            case "add" -> database.addMovie(action.getAddedMovie());
+            case "delete" -> database.deleteMovie(action.getDeletedMovie());
+            default -> database.setErrorOutput();
+        }
     }
 }

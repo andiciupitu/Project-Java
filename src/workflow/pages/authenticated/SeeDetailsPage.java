@@ -54,11 +54,16 @@ public class SeeDetailsPage implements Page {
                 db.setPages(new ArrayList<String>());
             }
             case "movies" -> {
+                db.getPages().add("see details");
                 db.setPage(new MoviesPage());
                 db.setCurrentMoviesList();
                 db.setSuccessOutput();
             }
-            case "upgrades" -> db.setPage(new UpgradesPage());
+            case "upgrades" -> {
+                db.getPages().add("see details");
+                db.setPage(new UpgradesPage());
+            }
+
             case "homepage" -> db.setPage(new AuthenticatedHomepage());
             default -> db.setErrorOutput();
         }
@@ -70,8 +75,13 @@ public class SeeDetailsPage implements Page {
             String previousPage = db.getPages().get(db.getPages().size() - 1);
             db.getPages().remove(db.getPages().size() - 1);
             switch(previousPage) {
-                case "see details" -> db.setPage(new SeeDetailsPage());
-                case "movies" -> db.setPage(new MoviesPage());
+                case "see details" -> {
+                    db.setPage(new SeeDetailsPage());
+                }
+                case "movies" ->  {
+                    db.setPage(new MoviesPage());
+                    db.setCurrentMoviesList();
+                    db.setSuccessOutput();}
                 case "upgrades" -> db.setPage(new UpgradesPage());
                 case "homepage" -> db.setPage(new AuthenticatedHomepage());
                 default -> db.setErrorOutput();
@@ -82,7 +92,11 @@ public class SeeDetailsPage implements Page {
     }
     @Override
     public void modifyDatabase(Database database, Action action) {
-
+        switch (action.getFeature()) {
+            case "add" -> database.addMovie(action.getAddedMovie());
+            case "delete" -> database.deleteMovie(action.getDeletedMovie());
+            default -> database.setErrorOutput();
+        }
     }
 
     /**
@@ -209,7 +223,7 @@ public class SeeDetailsPage implements Page {
         }
     }
     public void subscribe(String subscribedGenre) {
-
+        database.setErrorOutput();
     }
     public void addSubscribedGenre (String subscribedGenre) {
 

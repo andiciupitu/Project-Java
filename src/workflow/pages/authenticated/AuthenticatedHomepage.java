@@ -26,11 +26,11 @@ public final class AuthenticatedHomepage implements Page {
                 database.setPage(new MoviesPage());
                 database.setCurrentMoviesList();
                 database.setSuccessOutput();
-                database.getPages().add("movies");
+                database.getPages().add("homepage");
             }
             case "upgrades" -> {
                 database.setPage(new UpgradesPage());
-                database.getPages().add("upgrades");
+                database.getPages().add("homepage");
             }
             default -> database.setErrorOutput();
         }
@@ -42,6 +42,10 @@ public final class AuthenticatedHomepage implements Page {
     }
     @Override
     public void modifyDatabase(Database database, Action action) {
-
+        switch (action.getFeature()) {
+            case "add" -> database.addMovie(action.getAddedMovie());
+            case "delete" -> database.deleteMovie(action.getDeletedMovie());
+            default -> database.setErrorOutput();
+        }
     }
 }

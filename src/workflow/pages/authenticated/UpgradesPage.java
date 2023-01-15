@@ -30,6 +30,7 @@ public final class UpgradesPage implements Page {
                 database.setPages(new ArrayList<String>());
             }
             case "movies" -> {
+                database.getPages().add("upgrades");
                 database.setPage(new MoviesPage());
                 database.setCurrentMoviesList();
                 database.setSuccessOutput();
@@ -57,7 +58,11 @@ public final class UpgradesPage implements Page {
     }
     @Override
     public void modifyDatabase(Database database, Action action) {
-
+        switch (action.getFeature()) {
+            case "add" -> database.addMovie(action.getAddedMovie());
+            case "delete" -> database.deleteMovie(action.getDeletedMovie());
+            default -> database.setErrorOutput();
+        }
     }
     /**
      * Metoda pentru a cumpara cont premium

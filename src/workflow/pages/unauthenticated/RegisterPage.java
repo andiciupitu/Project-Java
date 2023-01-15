@@ -26,7 +26,6 @@ public final class RegisterPage implements Page {
         database.getUsers().add(user);
         database.setUserIndex(database.getUsers().indexOf(user));
         database.setPage(new AuthenticatedHomepage());
-        database.getPages().add("homepage");
         database.setSuccessOutput();
     }
 
@@ -73,6 +72,10 @@ public final class RegisterPage implements Page {
     }
     @Override
     public void modifyDatabase(Database database, Action action) {
-
+        switch (action.getFeature()) {
+            case "add" -> database.addMovie(action.getAddedMovie());
+            case "delete" -> database.deleteMovie(action.getDeletedMovie());
+            default -> database.setErrorOutput();
+        }
     }
 }
