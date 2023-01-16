@@ -22,7 +22,7 @@ public final class Action {
         return addedMovie;
     }
 
-    public void setAddedMovie(Movie addedMovie) {
+    public void setAddedMovie(final Movie addedMovie) {
         this.addedMovie = addedMovie;
     }
 
@@ -30,7 +30,7 @@ public final class Action {
         return deletedMovie;
     }
 
-    public void setDeletedMovie(String deletedMovie) {
+    public void setDeletedMovie(final String deletedMovie) {
         this.deletedMovie = deletedMovie;
     }
 
@@ -38,7 +38,7 @@ public final class Action {
         return subscribedGenre;
     }
 
-    public void setSubscribedGenre(String subscribedGenre) {
+    public void setSubscribedGenre(final String subscribedGenre) {
         this.subscribedGenre = subscribedGenre;
     }
 

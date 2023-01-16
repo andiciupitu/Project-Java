@@ -9,7 +9,7 @@ import workflow.fileio.User;
 
 import java.util.ArrayList;
 
-public class SeeDetailsPage implements Page {
+public final class SeeDetailsPage implements Page {
     private Database database;
     private User user;
     private Movie movie;
@@ -70,11 +70,11 @@ public class SeeDetailsPage implements Page {
     }
 
     @Override
-    public void backPage(Database db) {
+    public void backPage(final Database db) {
         if (db.getPages().size() > 0) {
             String previousPage = db.getPages().get(db.getPages().size() - 1);
             db.getPages().remove(db.getPages().size() - 1);
-            switch(previousPage) {
+            switch (previousPage) {
                 case "movies" ->  {
                     db.setPage(new MoviesPage());
                     db.setCurrentMoviesList();
@@ -88,7 +88,7 @@ public class SeeDetailsPage implements Page {
         }
     }
     @Override
-    public void modifyDatabase(Database database, Action action) {
+    public void modifyDatabase(final Database database, final Action action) {
         switch (action.getFeature()) {
             case "add" -> database.addMovie(action.getAddedMovie());
             case "delete" -> database.deleteMovie(action.getDeletedMovie());

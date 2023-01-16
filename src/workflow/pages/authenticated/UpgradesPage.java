@@ -41,11 +41,11 @@ public final class UpgradesPage implements Page {
     }
 
     @Override
-    public void backPage(Database database) {
+    public void backPage(final Database database) {
         if (database.getPages().size() > 0) {
             String previousPage = database.getPages().get(database.getPages().size() - 1);
             database.getPages().remove(database.getPages().size() - 1);
-            switch(previousPage) {
+            switch (previousPage) {
                 case "see details" -> database.setPage(new SeeDetailsPage());
                 case "movies" -> database.setPage(new MoviesPage());
                 case "upgrades" -> database.setPage(new UpgradesPage());
@@ -57,7 +57,7 @@ public final class UpgradesPage implements Page {
         }
     }
     @Override
-    public void modifyDatabase(Database database, Action action) {
+    public void modifyDatabase(final Database database, final Action action) {
         switch (action.getFeature()) {
             case "add" -> database.addMovie(action.getAddedMovie());
             case "delete" -> database.deleteMovie(action.getDeletedMovie());

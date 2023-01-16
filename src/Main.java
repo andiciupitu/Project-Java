@@ -39,10 +39,10 @@ public final class Main {
             if (actions.get(i).getType().equals("on page")) {
                 // daca comanda este una de tip onPage
                  command = new OnPageCommand(database, actions.get(i));
-            } else if (actions.get(i).getType().equals("change page")){
+            } else if (actions.get(i).getType().equals("change page")) {
                 // daca comanda este una de tip changePage
                  command = new ChangePageCommand(database, actions.get(i));
-            } else if (actions.get(i).getType().equals("back")){
+            } else if (actions.get(i).getType().equals("back")) {
                // comanda de tip back
                 command = new BackPageCommand(database);
             } else {
@@ -62,9 +62,9 @@ public final class Main {
             }
         }
         // in cazul in care avem un user logat cu un cont premium trebuie sa ii facem o recomandare
-        if((database.getUserIndex() != -1)
-                && (database.getUsers().get(database.getUserIndex()).getCredentials().getAccountType().equals("premium")))
-        {
+        if ((database.getUserIndex() != -1)
+                && (database.getUsers().get(database.getUserIndex()).
+                getCredentials().getAccountType().equals("premium"))) {
             // apelam metoda de recomandare
             database.makeRecommendation();
             // punem informatia in output

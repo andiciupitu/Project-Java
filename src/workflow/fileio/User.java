@@ -2,7 +2,7 @@ package workflow.fileio;
 
 import java.util.ArrayList;
 
-public class User {
+public final class User {
     private Credentials credentials;
     private int tokensCount;
     public static final int FREEPREMIUMMOVIES = 15;
@@ -17,7 +17,7 @@ public class User {
         return notifications;
     }
 
-    public void setNotifications(ArrayList<Notifications> notifications) {
+    public void setNotifications(final ArrayList<Notifications> notifications) {
         this.notifications = notifications;
     }
 

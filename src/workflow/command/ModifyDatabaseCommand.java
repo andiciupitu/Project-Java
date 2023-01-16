@@ -4,10 +4,10 @@ import workflow.Command;
 import workflow.Database;
 import workflow.io.Action;
 
-public class ModifyDatabaseCommand implements Command {
+public final class ModifyDatabaseCommand implements Command {
     private Database database;
     private Action action;
-    public ModifyDatabaseCommand(Database database, Action action) {
+    public ModifyDatabaseCommand(final Database database, final Action action) {
         this.database = database;
         this.action = action;
     }

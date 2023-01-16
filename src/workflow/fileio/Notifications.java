@@ -8,7 +8,7 @@ public final class Notifications {
         return movieName;
     }
 
-    public void setMovieName(String movieName) {
+    public void setMovieName(final String movieName) {
         this.movieName = movieName;
     }
 
@@ -16,7 +16,7 @@ public final class Notifications {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 }

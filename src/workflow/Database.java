@@ -55,8 +55,8 @@ public final class Database {
      * metoda pentru adaugarea unui film in baza de date
      * @param addedMovie filmul care trebuie adaugat
      */
-    public void addMovie(Movie addedMovie) {
-        if(movies.contains(addedMovie)) {
+    public void addMovie(final Movie addedMovie) {
+        if (movies.contains(addedMovie)) {
             setErrorOutput();
         } else {
             movies.add(addedMovie);
@@ -67,13 +67,13 @@ public final class Database {
      * metoda pentru stergerea unui film din baza de date
      * @param deletedMovie filmul care trebuie sters
      */
-    public void deleteMovie(String deletedMovie) {
+    public void deleteMovie(final String deletedMovie) {
         movies.removeIf(movie -> (movie.getName().equals(deletedMovie)));
-        for(User user : users) {
-            user.getPurchasedMovies().removeIf(movie ->(movie.getName().equals(deletedMovie)));
-            user.getWatchedMovies().removeIf(movie ->(movie.getName().equals(deletedMovie)));
-            user.getLikedMovies().removeIf(movie ->(movie.getName().equals(deletedMovie)));
-            user.getRatedMovies().removeIf(movie ->(movie.getName().equals(deletedMovie)));
+        for (User user : users) {
+            user.getPurchasedMovies().removeIf(movie -> (movie.getName().equals(deletedMovie)));
+            user.getWatchedMovies().removeIf(movie -> (movie.getName().equals(deletedMovie)));
+            user.getLikedMovies().removeIf(movie -> (movie.getName().equals(deletedMovie)));
+            user.getRatedMovies().removeIf(movie -> (movie.getName().equals(deletedMovie)));
         }
     }
 
@@ -106,7 +106,7 @@ public final class Database {
         return pages;
     }
 
-    public void setPages(ArrayList<String> pages) {
+    public void setPages(final ArrayList<String> pages) {
         this.pages = pages;
     }
     public int getUserIndex() {

@@ -3,10 +3,10 @@ package workflow.command;
 import workflow.Command;
 import workflow.Database;
 
-public class BackPageCommand implements Command {
+public final class BackPageCommand implements Command {
 
     private Database database;
-    public BackPageCommand(Database database) {
+    public BackPageCommand(final Database database) {
         this.database = database;
     }
     @Override

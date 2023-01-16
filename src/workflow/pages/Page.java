@@ -3,7 +3,6 @@ package workflow.pages;
 import workflow.Database;
 import workflow.io.Action;
 
-import javax.xml.crypto.Data;
 
 public interface Page {
     /**

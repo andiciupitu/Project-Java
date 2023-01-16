@@ -37,11 +37,11 @@ public final class AuthenticatedHomepage implements Page {
     }
 
     @Override
-    public void backPage(Database database) {
+    public void backPage(final Database database) {
         database.setErrorOutput();
     }
     @Override
-    public void modifyDatabase(Database database, Action action) {
+    public void modifyDatabase(final Database database, final Action action) {
         switch (action.getFeature()) {
             case "add" -> database.addMovie(action.getAddedMovie());
             case "delete" -> database.deleteMovie(action.getDeletedMovie());
