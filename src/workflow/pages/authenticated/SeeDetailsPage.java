@@ -32,7 +32,7 @@ public class SeeDetailsPage implements Page {
 
     @Override
     public void onPage(final Database db, final Action action) {
-        // pe pagina SeeDetails putem cumpara, viziona, aprecia sau evalua filme
+        // pe pagina SeeDetails putem cumpara, viziona, aprecia, evalua filme, abona
         switch (action.getFeature()) {
             case "purchase" -> purchase();
             case "watch" -> watch();
@@ -75,9 +75,6 @@ public class SeeDetailsPage implements Page {
             String previousPage = db.getPages().get(db.getPages().size() - 1);
             db.getPages().remove(db.getPages().size() - 1);
             switch(previousPage) {
-                case "see details" -> {
-                    db.setPage(new SeeDetailsPage());
-                }
                 case "movies" ->  {
                     db.setPage(new MoviesPage());
                     db.setCurrentMoviesList();
@@ -222,12 +219,13 @@ public class SeeDetailsPage implements Page {
             }
         }
     }
+
+    /**
+     * metoda de abonare la un anume gen
+     * @param subscribedGenre tipul de film la care vrem sa ne abonam
+     */
     public void subscribe(String subscribedGenre) {
         database.setErrorOutput();
     }
-    public void addSubscribedGenre (String subscribedGenre) {
-
-    }
-
 }
 

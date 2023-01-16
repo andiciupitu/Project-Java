@@ -1,6 +1,6 @@
 package workflow.fileio;
 
-public class Notifications {
+public final class Notifications {
     private String movieName;
     private String message;
 

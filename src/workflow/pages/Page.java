@@ -17,8 +17,14 @@ public interface Page {
     void changePage(Database database, Action action);
 
     /**
-     *
+     * metoda abstracta pentru schimbarea paginii pe pagina precedenta
      */
     void backPage(Database database);
+
+    /**
+     * metoda abstracta pentru modificarea bazei de date(adaugare/stergere film)
+     * @param database baza de date
+     * @param action actiunea
+     */
     void modifyDatabase(Database database, Action action);
 }

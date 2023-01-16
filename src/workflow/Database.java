@@ -38,6 +38,10 @@ public final class Database {
             }
         }
     }
+
+    /**
+     * metoda de recomandare film
+     */
     public void makeRecommendation() {
         Notifications recomandare = new Notifications();
         recomandare.setMessage("Recommendation");
@@ -46,6 +50,11 @@ public final class Database {
         currentMoviesList = null;
         setSuccessOutput();
     }
+
+    /**
+     * metoda pentru adaugarea unui film in baza de date
+     * @param addedMovie filmul care trebuie adaugat
+     */
     public void addMovie(Movie addedMovie) {
         if(movies.contains(addedMovie)) {
             setErrorOutput();
@@ -53,8 +62,19 @@ public final class Database {
             movies.add(addedMovie);
         }
     }
-    public void deleteMovie(String deletedMovie) {
 
+    /**
+     * metoda pentru stergerea unui film din baza de date
+     * @param deletedMovie filmul care trebuie sters
+     */
+    public void deleteMovie(String deletedMovie) {
+        movies.removeIf(movie -> (movie.getName().equals(deletedMovie)));
+        for(User user : users) {
+            user.getPurchasedMovies().removeIf(movie ->(movie.getName().equals(deletedMovie)));
+            user.getWatchedMovies().removeIf(movie ->(movie.getName().equals(deletedMovie)));
+            user.getLikedMovies().removeIf(movie ->(movie.getName().equals(deletedMovie)));
+            user.getRatedMovies().removeIf(movie ->(movie.getName().equals(deletedMovie)));
+        }
     }
 
     /**

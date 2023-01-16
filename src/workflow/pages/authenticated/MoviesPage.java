@@ -13,13 +13,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public final class MoviesPage implements Page {
-    private Database db;
-    MoviesPage() {
-
-    }
-    MoviesPage(Database db) {
-        this.db = db;
-    }
     /**
      * Metoda pentru cautarea filmelor care incep cu un anume subsir
      * @param database baza de date
@@ -49,7 +42,6 @@ public final class MoviesPage implements Page {
             database.getPages().remove(database.getPages().size() - 1);
             switch(previousPage) {
                 case "see details" -> database.setPage(new SeeDetailsPage());
-                case "movies" -> database.setPage(new MoviesPage());
                 case "upgrades" -> database.setPage(new UpgradesPage());
                 case "homepage" -> database.setPage(new AuthenticatedHomepage());
                 default -> database.setErrorOutput();

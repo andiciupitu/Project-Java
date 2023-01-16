@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import workflow.Command;
 import workflow.Database;
 import workflow.Invoker;
-import workflow.UsersDatabase;
 import workflow.command.BackPageCommand;
 import workflow.command.ChangePageCommand;
 import workflow.command.ModifyDatabaseCommand;
@@ -34,7 +33,6 @@ public final class Main {
         Invoker invoker = new Invoker();
         ArrayList<Output> output = new ArrayList<>();
         Database database = new Database(inputData.getUsers(), inputData.getMovies());
-        UsersDatabase usersDatabase = new UsersDatabase(inputData.getUsers());
         ArrayList<Action> actions = inputData.getActions();
         for (int i = 0; i < actions.size(); i++) {
             Command command;
@@ -48,6 +46,7 @@ public final class Main {
                // comanda de tip back
                 command = new BackPageCommand(database);
             } else {
+                // comanda de modificare a bazei de date
                 command = new ModifyDatabaseCommand(database, actions.get(i));
             }
             database.setOutput(null);
@@ -62,9 +61,13 @@ public final class Main {
                 output.add(loveDeepCopy);
             }
         }
-        if(database.getUsers().get(database.getUserIndex()).getCredentials().getAccountType().equals("premium") )
+        // in cazul in care avem un user logat cu un cont premium trebuie sa ii facem o recomandare
+        if((database.getUserIndex() != -1)
+                && (database.getUsers().get(database.getUserIndex()).getCredentials().getAccountType().equals("premium")))
         {
+            // apelam metoda de recomandare
             database.makeRecommendation();
+            // punem informatia in output
             Output outputNow = database.getOutput();
             Output loveDeepCopy = objectMapper.
                     readValue(objectMapper.writeValueAsBytes(outputNow), Output.class);
